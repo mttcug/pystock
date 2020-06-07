@@ -1,0 +1,40 @@
+mysql命令行学习
+1. mysql.server status ------查看数据库是否启动的状态
+2. mysql.server start  ------ 启动mysql服务器
+3. mysql.server stop   ------ 关闭mysql服务器
+4. mysql -u root -p    ------登录mysql数据库
+
+show databases;
+use dbname;
+show tables;
+select * from tablename;
+
+python链接mysql数据库
+1. 安装pymysql
+2. db = pymysql.connect(host='localhost', user='root', password='', db='stock')
+3. cur = db.cursor()
+4. cur.execute('sql语句')
+5. cur获取数据的操作：fetchall、fetchone、fetchmany(size)
+6. close
+
+connection的操作有：cursor、commit、rollback、close
+cursor的操作：execute、fetchone、fetchall、fetchmany、close、rowcoun
+
+mac的一些命令
+vim的使用
+vim的是三种模式
+1.输入模式
+2.命令模式
+3.底线命令模式
+vim + 文件名进入命令模式，
+想要输入 shift + i o a
+退出输入模式 esc 则进入命令模式
+命令模式进入底部命令行模式 shift + :
+wq保存退出
+退出底部命令行模式 esc
+
+
+vim 文件名
+shift a  ------append
+shift i  ------insert
+
