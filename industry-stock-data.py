@@ -6,7 +6,7 @@ import pymysql
 
 
 def getData():
-    ajaxUrl = 'http://75.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112403557064424984069_1591522896063&pn=1&pz=20&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&fid=f3&fs=m:90+t:2+f:!50&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152,f124,f107,f104,f105,f140,f141,f207,f222&_=1591522896064'
+    ajaxUrl = 'http://75.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112403557064424984069_1591522896063&pn=1&pz=100&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&fid=f3&fs=m:90+t:2+f:!50&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152,f124,f107,f104,f105,f140,f141,f207,f222&_=1591522896064'
     rep = requests.get(ajaxUrl, headers={
         'User-Agent': UserAgent(verify_ssl=False).random,
     })
@@ -32,7 +32,7 @@ def saveToDB():
 def createDBTable(db, cur):
     try:
         cur.execute('use stock;')
-        createSql = "create table industry0607(id int, 板块名称 char(30), 涨跌幅 float, 最新价 float, 上涨家数 int, 下跌家数 int, 领涨股票 char(50), 领涨涨跌幅 float)"
+        createSql = "create table industry0608(id int, 板块名称 char(30), 涨跌幅 float, 最新价 float, 上涨家数 int, 下跌家数 int, 领涨股票 char(50), 领涨涨跌幅 float)"
         cur.execute(createSql)
     except Exception as e:
         raise e
@@ -68,5 +68,6 @@ if __name__ == '__main__':
     result = re.findall(reg, response)
     jsonData = json.loads(result[0])
     data = jsonData['data']['diff']
+    print('长度：', data, len(data))
     saveToDB()
     # print('data3-------------------------:\n', data)
