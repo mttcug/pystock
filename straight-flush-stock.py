@@ -23,7 +23,6 @@ def getIndustryLink(content):
     return industry_list
 
 
-
 def saveData(data):
     config = {
         'host': 'localhost',
@@ -31,16 +30,32 @@ def saveData(data):
         'password': '',
         'database': 'stock'
     }
-    db = pymysql.connect(config)
+    db = pymysql.connect(**config)
     cur = db.cursor()
-    cur.execute('use stocks;')
+    cur.execute('use stock;')
     create_sql = '''
-                CREATE TABLE INDUSTRY(
+                CREATE TABLE STOCK_INDUSTRY(
                     id char(10) NOT NULL PRIMARY KEY ,
                     行业名称 char(50) NOT NULL DEFAULT '--',
                     页面链接 char(150) NOT NULL DEFAULT '--'
                 )
                 '''
+    try:
+        cur.execute(create_sql)
+        index = 0
+        for industry, link in data:
+            insert_sql = '''
+                        INSERT INTO STOCK_INDUSTRY (id,行业名称,页面链接)
+                                    VALUES (%s,%s,%s)
+                    '''
+            cur.execute(insert_sql, (index, industry, link))
+            index += 1
+        db.commit()
+    except Exception as e:
+        raise e
+    finally:
+        cur.close()
+        db.close()
 
 
 if __name__ == '__main__':
