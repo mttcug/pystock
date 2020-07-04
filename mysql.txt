@@ -3,6 +3,8 @@ mysql命令行学习
 2. mysql.server start  ------ 启动mysql服务器
 3. mysql.server stop   ------ 关闭mysql服务器
 4. mysql -u root -p    ------登录mysql数据库
+5. ps -ef|grep mysqld  -----解决 MYSQL server PID file could not be found
+6.kill -9 进程号      然后重启数据库即可解决
 
 show databases;
 use dbname;
