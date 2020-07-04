@@ -1,5 +1,7 @@
 import pymysql
 import requests
+from bs4 import BeautifulSoup
+from fake_useragent import UserAgent
 
 def getIndustry():
     db = pymysql.connect(host="localhost", user="root", password="", database="stock")
@@ -14,8 +16,15 @@ def getIndustry():
 
 def getTop10(id, url):
     url = url.replace("detail", "detail/field/3475914/order/desc/page/1/ajax/1")
-    print(url)
-    content = requests.get(url)
+    resp = requests.get(url, headers={
+        'User-Agent': UserAgent(verify_ssl=False).random,
+    })
+    resp.encoding = "utf-8"
+    content = resp.text
+    print("################:", url, resp.text)
+    # soup = BeautifulSoup(content, "html.parser")
+    # code = soup.find_all("tr")
+    # print("_______________code:", code)
     return content
 
 
